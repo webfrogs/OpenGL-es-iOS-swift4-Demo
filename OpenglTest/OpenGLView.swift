@@ -15,10 +15,10 @@ struct Vertex {
 }
 
 var Vertices = [
-    Vertex(Position: (1, -1, -7) , Color: (1, 0, 0, 1)),
-    Vertex(Position: (1, 1, -7)  , Color: (0, 1, 0, 1)),
-    Vertex(Position: (-1, 1, -7) , Color: (0, 0, 1, 1)),
-    Vertex(Position: (-1, -1, -7), Color: (0, 0, 0, 1))
+    Vertex(Position: (1, -1, 0) , Color: (1, 0, 0, 1)),
+    Vertex(Position: (1, 1, 0)  , Color: (0, 1, 0, 1)),
+    Vertex(Position: (-1, 1, 0) , Color: (0, 0, 1, 1)),
+    Vertex(Position: (-1, -1, 0), Color: (0, 0, 0, 1))
 ]
 
 var Indices: [GLubyte] = [
@@ -55,6 +55,7 @@ class OpenGLView: UIView {
     var _colorSlot: GLuint = 0
 
     var _projectionUniform: GLuint = 0
+    var _modelViewUniform: GLuint = 0
 
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -113,6 +114,9 @@ extension OpenGLView {
         projection?.populate(fromFrustumLeft: -2, andRight: 2, andBottom: -h/2, andTop: h/2, andNear: 4, andFar: 10)
         glUniformMatrix4fv(GLint(_projectionUniform), 1, 0, projection?.glMatrix)
 
+        let modelView = CC3GLMatrix()
+        modelView?.populate(fromTranslation: CC3Vector(x: GLfloat(sin(CACurrentMediaTime())), y: 0, z: -7))
+        glUniformMatrix4fv(GLint(_modelViewUniform), 1, 0, modelView?.glMatrix)
 
         glViewport(0, 0, GLsizei(frame.size.width), GLsizei(frame.size.height))
 
@@ -188,7 +192,7 @@ extension OpenGLView {
         glEnableVertexAttribArray(_colorSlot)
 
         _projectionUniform = GLuint(glGetUniformLocation(programHandle, "Projection"))
-
+        _modelViewUniform = GLuint(glGetUniformLocation(programHandle, "Modelview"))
 
     }
 
