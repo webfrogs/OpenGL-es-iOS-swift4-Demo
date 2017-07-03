@@ -1,9 +1,11 @@
-attribute vec4 Position; // 1
-attribute vec4 SourceColor; // 2
+attribute vec4 Position;
+attribute vec4 SourceColor;
 
-varying vec4 DestinationColor; // 3
+uniform mat4 Projection;
 
-void main(void) { // 4
-    DestinationColor = SourceColor; // 5
-    gl_Position = Position; // 6
+varying vec4 DestinationColor;
+
+void main(void) {
+    DestinationColor = SourceColor;
+    gl_Position = Projection * Position; 
 }

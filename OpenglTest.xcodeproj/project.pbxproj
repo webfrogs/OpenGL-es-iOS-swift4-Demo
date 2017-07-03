@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C35E0F141F09D9AF00F64401 /* CC3Foundation.h in Sources */ = {isa = PBXBuildFile; fileRef = C35E0F061F09D63B00F64401 /* CC3Foundation.h */; };
+		C35E0F151F09D9AF00F64401 /* CC3Foundation.m in Sources */ = {isa = PBXBuildFile; fileRef = C35E0F071F09D63B00F64401 /* CC3Foundation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C35E0F161F09D9AF00F64401 /* CC3GLMatrix.h in Sources */ = {isa = PBXBuildFile; fileRef = C35E0F081F09D63B00F64401 /* CC3GLMatrix.h */; };
+		C35E0F171F09D9AF00F64401 /* CC3GLMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = C35E0F091F09D63B00F64401 /* CC3GLMatrix.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C35E0F181F09D9AF00F64401 /* CC3Kazmath.c in Sources */ = {isa = PBXBuildFile; fileRef = C35E0F0A1F09D63B00F64401 /* CC3Kazmath.c */; };
+		C35E0F191F09D9AF00F64401 /* CC3Kazmath.h in Sources */ = {isa = PBXBuildFile; fileRef = C35E0F0B1F09D63B00F64401 /* CC3Kazmath.h */; };
+		C35E0F1A1F09D9AF00F64401 /* CC3Logging.h in Sources */ = {isa = PBXBuildFile; fileRef = C35E0F0C1F09D63B00F64401 /* CC3Logging.h */; };
+		C35E0F1B1F09D9AF00F64401 /* CC3Math.h in Sources */ = {isa = PBXBuildFile; fileRef = C35E0F0D1F09D63B00F64401 /* CC3Math.h */; };
+		C35E0F1C1F09D9AF00F64401 /* CC3Math.m in Sources */ = {isa = PBXBuildFile; fileRef = C35E0F0E1F09D63B00F64401 /* CC3Math.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C35E0F1D1F09D9AF00F64401 /* ccTypes.h in Sources */ = {isa = PBXBuildFile; fileRef = C35E0F0F1F09D63B00F64401 /* ccTypes.h */; };
 		C3DD75371F07388F00595218 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DD75361F07388F00595218 /* AppDelegate.swift */; };
 		C3DD75391F07388F00595218 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DD75381F07388F00595218 /* ViewController.swift */; };
 		C3DD753C1F07388F00595218 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3DD753A1F07388F00595218 /* Main.storyboard */; };
@@ -31,6 +41,17 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C35E0F061F09D63B00F64401 /* CC3Foundation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC3Foundation.h; sourceTree = "<group>"; };
+		C35E0F071F09D63B00F64401 /* CC3Foundation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC3Foundation.m; sourceTree = "<group>"; };
+		C35E0F081F09D63B00F64401 /* CC3GLMatrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC3GLMatrix.h; sourceTree = "<group>"; };
+		C35E0F091F09D63B00F64401 /* CC3GLMatrix.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC3GLMatrix.m; sourceTree = "<group>"; };
+		C35E0F0A1F09D63B00F64401 /* CC3Kazmath.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = CC3Kazmath.c; sourceTree = "<group>"; };
+		C35E0F0B1F09D63B00F64401 /* CC3Kazmath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC3Kazmath.h; sourceTree = "<group>"; };
+		C35E0F0C1F09D63B00F64401 /* CC3Logging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC3Logging.h; sourceTree = "<group>"; };
+		C35E0F0D1F09D63B00F64401 /* CC3Math.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CC3Math.h; sourceTree = "<group>"; };
+		C35E0F0E1F09D63B00F64401 /* CC3Math.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CC3Math.m; sourceTree = "<group>"; };
+		C35E0F0F1F09D63B00F64401 /* ccTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ccTypes.h; sourceTree = "<group>"; };
+		C35E0F101F09D66800F64401 /* OpenglTest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OpenglTest-Bridging-Header.h"; sourceTree = "<group>"; };
 		C3DD75331F07388F00595218 /* OpenglTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenglTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3DD75361F07388F00595218 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3DD75381F07388F00595218 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -55,9 +76,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C35E0F051F09D63B00F64401 /* Cocos3DMathLib */ = {
+			isa = PBXGroup;
+			children = (
+				C35E0F061F09D63B00F64401 /* CC3Foundation.h */,
+				C35E0F071F09D63B00F64401 /* CC3Foundation.m */,
+				C35E0F081F09D63B00F64401 /* CC3GLMatrix.h */,
+				C35E0F091F09D63B00F64401 /* CC3GLMatrix.m */,
+				C35E0F0A1F09D63B00F64401 /* CC3Kazmath.c */,
+				C35E0F0B1F09D63B00F64401 /* CC3Kazmath.h */,
+				C35E0F0C1F09D63B00F64401 /* CC3Logging.h */,
+				C35E0F0D1F09D63B00F64401 /* CC3Math.h */,
+				C35E0F0E1F09D63B00F64401 /* CC3Math.m */,
+				C35E0F0F1F09D63B00F64401 /* ccTypes.h */,
+			);
+			path = Cocos3DMathLib;
+			sourceTree = "<group>";
+		};
 		C3DD752A1F07388F00595218 = {
 			isa = PBXGroup;
 			children = (
+				C35E0F051F09D63B00F64401 /* Cocos3DMathLib */,
 				C3DD75351F07388F00595218 /* OpenglTest */,
 				C3DD75341F07388F00595218 /* Products */,
 				C3DD75481F07391000595218 /* Frameworks */,
@@ -84,6 +123,7 @@
 				C3DD754A1F07393700595218 /* OpenGLView.swift */,
 				C3DD75581F075F5900595218 /* SimpleVertex.glsl */,
 				C3DD755A1F075F7F00595218 /* SimpleFragment.glsl */,
+				C35E0F101F09D66800F64401 /* OpenglTest-Bridging-Header.h */,
 			);
 			path = OpenglTest;
 			sourceTree = "<group>";
@@ -129,6 +169,7 @@
 				TargetAttributes = {
 					C3DD75321F07388F00595218 = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 0900;
 					};
 				};
 			};
@@ -170,6 +211,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C35E0F141F09D9AF00F64401 /* CC3Foundation.h in Sources */,
+				C35E0F151F09D9AF00F64401 /* CC3Foundation.m in Sources */,
+				C35E0F161F09D9AF00F64401 /* CC3GLMatrix.h in Sources */,
+				C35E0F171F09D9AF00F64401 /* CC3GLMatrix.m in Sources */,
+				C35E0F181F09D9AF00F64401 /* CC3Kazmath.c in Sources */,
+				C35E0F191F09D9AF00F64401 /* CC3Kazmath.h in Sources */,
+				C35E0F1A1F09D9AF00F64401 /* CC3Logging.h in Sources */,
+				C35E0F1B1F09D9AF00F64401 /* CC3Math.h in Sources */,
+				C35E0F1C1F09D9AF00F64401 /* CC3Math.m in Sources */,
+				C35E0F1D1F09D9AF00F64401 /* ccTypes.h in Sources */,
 				C3DD75391F07388F00595218 /* ViewController.swift in Sources */,
 				C3DD754B1F07393700595218 /* OpenGLView.swift in Sources */,
 				C3DD75371F07388F00595218 /* AppDelegate.swift in Sources */,
@@ -305,16 +356,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"${SRCROOT}",
 					"$(PROJECT_DIR)",
 				);
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = "${SRCROOT}/Cocos3DMathLib";
 				INFOPLIST_FILE = OpenglTest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ricebook.OpenglTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "OpenglTest/OpenglTest-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -324,16 +378,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"${SRCROOT}",
 					"$(PROJECT_DIR)",
 				);
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = "${SRCROOT}/Cocos3DMathLib";
 				INFOPLIST_FILE = OpenglTest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ricebook.OpenglTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "OpenglTest/OpenglTest-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
