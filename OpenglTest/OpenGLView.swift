@@ -61,7 +61,7 @@ class OpenGLView: UIView {
         super.layoutSubviews()
 
         _context?.renderbufferStorage(Int(GL_RENDERBUFFER), from: layer as? EAGLDrawable)
-        render()
+        setupDisplayLink()
     }
     
 }
@@ -105,7 +105,7 @@ extension OpenGLView {
         glFramebufferRenderbuffer(GLenum(GL_FRAMEBUFFER), GLenum(GL_COLOR_ATTACHMENT0), GLenum(GL_RENDERBUFFER), _colorRenderBuffer)
     }
 
-    func render() {
+    @objc func render(displayLink: CADisplayLink) {
         glClearColor(0, 104.0/255.0, 55.0/255.0, 1)
         glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
 
@@ -208,5 +208,10 @@ extension OpenGLView {
         glBindBuffer(GLenum(GL_ELEMENT_ARRAY_BUFFER), indexBuffer)
         glBufferData(GLenum(GL_ELEMENT_ARRAY_BUFFER), Indices.count * MemoryLayout<GLubyte>.size, Indices, GLenum(GL_STATIC_DRAW))
 
+    }
+
+    func setupDisplayLink() {
+        let displayLink = CADisplayLink(target: self, selector: #selector(render(displayLink:)))
+        displayLink.add(to: RunLoop.current, forMode: RunLoopMode.defaultRunLoopMode)
     }
 }
