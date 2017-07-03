@@ -16,14 +16,35 @@ struct Vertex {
 
 var Vertices = [
     Vertex(Position: (1, -1, 0) , Color: (1, 0, 0, 1)),
-    Vertex(Position: (1, 1, 0)  , Color: (0, 1, 0, 1)),
-    Vertex(Position: (-1, 1, 0) , Color: (0, 0, 1, 1)),
-    Vertex(Position: (-1, -1, 0), Color: (0, 0, 0, 1))
+    Vertex(Position: (1, 1, 0)  , Color: (1, 0, 0, 1)),
+    Vertex(Position: (-1, 1, 0) , Color: (0, 1, 0, 1)),
+    Vertex(Position: (-1, -1, 0), Color: (0, 1, 0, 1)),
+    Vertex(Position: (1, -1, -1), Color: (1, 0, 0, 1)),
+    Vertex(Position: (1, 1, -1), Color: (1, 0, 0, 1)),
+    Vertex(Position: (-1, 1, -1), Color: (0, 1, 0, 1)),
+    Vertex(Position: (-1, -1, -1), Color: (0, 1, 0, 1)),
+
 ]
 
 var Indices: [GLubyte] = [
+    // Front
     0, 1, 2,
-    2, 3, 0
+    2, 3, 0,
+    // Back
+    4, 6, 5,
+    4, 7, 6,
+    // Left
+    2, 7, 3,
+    7, 6, 2,
+    // Right
+    0, 4, 1,
+    4, 1, 5,
+    // Top
+    6, 2, 1,
+    1, 6, 5,
+    // Bottom
+    0, 3, 7,
+    0, 7, 4
 ]
 
 class OpenGLView: UIView {
@@ -58,10 +79,14 @@ class OpenGLView: UIView {
     var _modelViewUniform: GLuint = 0
     var _currentRotation: GLfloat = 0
 
+    var _depthRenderBuffer: GLuint = 0
+
     override func layoutSubviews() {
         super.layoutSubviews()
 
         _context?.renderbufferStorage(Int(GL_RENDERBUFFER), from: layer as? EAGLDrawable)
+
+
         setupDisplayLink()
     }
     
@@ -71,6 +96,7 @@ extension OpenGLView {
     func p_actionWhenInit() {
         setupLayer()
         setupContent()
+        setupDepthBuffer()
         setupRenderBuffer()
         setupFrameBuffer()
         compileShaders()
@@ -96,7 +122,14 @@ extension OpenGLView {
     func setupRenderBuffer() {
         glGenRenderbuffers(1, &_colorRenderBuffer)
         glBindRenderbuffer(GLenum(GL_RENDERBUFFER), _colorRenderBuffer)
-//        _context?.renderbufferStorage(Int(GL_RENDERBUFFER), from: layer as? EAGLDrawable)
+    }
+
+    func setupDepthBuffer() {
+        glGenRenderbuffers(1, &_depthRenderBuffer)
+        glBindRenderbuffer(GLenum(GL_RENDERBUFFER), _depthRenderBuffer)
+
+        // can not use the frame of self.view, frame is not the real size because of autolayout.
+        glRenderbufferStorage(GLenum(GL_RENDERBUFFER), GLenum(GL_DEPTH_COMPONENT16), GLsizei(UIScreen.main.bounds.width), GLsizei(UIScreen.main.bounds.height))
     }
 
     func setupFrameBuffer() {
@@ -104,11 +137,13 @@ extension OpenGLView {
         glGenFramebuffers(1, &frameBuffer)
         glBindFramebuffer(GLenum(GL_FRAMEBUFFER), frameBuffer)
         glFramebufferRenderbuffer(GLenum(GL_FRAMEBUFFER), GLenum(GL_COLOR_ATTACHMENT0), GLenum(GL_RENDERBUFFER), _colorRenderBuffer)
+        glFramebufferRenderbuffer(GLenum(GL_FRAMEBUFFER), GLenum(GL_DEPTH_ATTACHMENT), GLenum(GL_RENDERBUFFER), _depthRenderBuffer)
     }
 
     @objc func render(displayLink: CADisplayLink) {
         glClearColor(0, 104.0/255.0, 55.0/255.0, 1)
-        glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
+        glClear(GLbitfield(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT))
+        glEnable(GLenum(GL_DEPTH_TEST))
 
         let projection = CC3GLMatrix()
         let h: GLfloat = GLfloat(4.0 * frame.size.height / frame.size.width)
