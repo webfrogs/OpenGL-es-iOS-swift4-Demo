@@ -84,16 +84,6 @@ class OpenGLView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        _context?.renderbufferStorage(Int(GL_RENDERBUFFER), from: layer as? EAGLDrawable)
-
-
-        setupDisplayLink()
-    }
-    
-}
-
-extension OpenGLView {
-    func p_actionWhenInit() {
         setupLayer()
         setupContent()
         setupDepthBuffer()
@@ -101,6 +91,14 @@ extension OpenGLView {
         setupFrameBuffer()
         compileShaders()
         setupVBOs()
+        setupDisplayLink()
+    }
+    
+}
+
+extension OpenGLView {
+    func p_actionWhenInit() {
+
 
 
     }
@@ -122,14 +120,13 @@ extension OpenGLView {
     func setupRenderBuffer() {
         glGenRenderbuffers(1, &_colorRenderBuffer)
         glBindRenderbuffer(GLenum(GL_RENDERBUFFER), _colorRenderBuffer)
+        _context?.renderbufferStorage(Int(GL_RENDERBUFFER), from: layer as? EAGLDrawable)
     }
 
     func setupDepthBuffer() {
         glGenRenderbuffers(1, &_depthRenderBuffer)
         glBindRenderbuffer(GLenum(GL_RENDERBUFFER), _depthRenderBuffer)
-
-        // can not use the frame of self.view, frame is not the real size because of autolayout.
-        glRenderbufferStorage(GLenum(GL_RENDERBUFFER), GLenum(GL_DEPTH_COMPONENT16), GLsizei(UIScreen.main.bounds.width), GLsizei(UIScreen.main.bounds.height))
+        glRenderbufferStorage(GLenum(GL_RENDERBUFFER), GLenum(GL_DEPTH_COMPONENT16), GLsizei(frame.width), GLsizei(frame.height))
     }
 
     func setupFrameBuffer() {
