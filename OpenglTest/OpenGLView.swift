@@ -56,6 +56,7 @@ class OpenGLView: UIView {
 
     var _projectionUniform: GLuint = 0
     var _modelViewUniform: GLuint = 0
+    var _currentRotation: GLfloat = 0
 
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -116,6 +117,8 @@ extension OpenGLView {
 
         let modelView = CC3GLMatrix()
         modelView?.populate(fromTranslation: CC3Vector(x: GLfloat(sin(CACurrentMediaTime())), y: 0, z: -7))
+        _currentRotation += GLfloat(displayLink.duration) * 90
+        modelView?.rotate(by: CC3Vector(x: _currentRotation, y: _currentRotation, z: 0))
         glUniformMatrix4fv(GLint(_modelViewUniform), 1, 0, modelView?.glMatrix)
 
         glViewport(0, 0, GLsizei(frame.size.width), GLsizei(frame.size.height))
