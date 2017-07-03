@@ -25,6 +25,8 @@
 		C3DD754B1F07393700595218 /* OpenGLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DD754A1F07393700595218 /* OpenGLView.swift */; };
 		C3DD75591F075F5900595218 /* SimpleVertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = C3DD75581F075F5900595218 /* SimpleVertex.glsl */; };
 		C3DD755B1F075F7F00595218 /* SimpleFragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = C3DD755A1F075F7F00595218 /* SimpleFragment.glsl */; };
+		C3FE43911F0A07EC00952EE6 /* item_powerup_fish.png in Resources */ = {isa = PBXBuildFile; fileRef = C3FE438F1F09FBB400952EE6 /* item_powerup_fish.png */; };
+		C3FE43921F0A07EF00952EE6 /* tile_floor.png in Resources */ = {isa = PBXBuildFile; fileRef = C3FE43901F09FBB400952EE6 /* tile_floor.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -63,6 +65,8 @@
 		C3DD754A1F07393700595218 /* OpenGLView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenGLView.swift; sourceTree = "<group>"; };
 		C3DD75581F075F5900595218 /* SimpleVertex.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = SimpleVertex.glsl; sourceTree = "<group>"; };
 		C3DD755A1F075F7F00595218 /* SimpleFragment.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = SimpleFragment.glsl; sourceTree = "<group>"; };
+		C3FE438F1F09FBB400952EE6 /* item_powerup_fish.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = item_powerup_fish.png; sourceTree = "<group>"; };
+		C3FE43901F09FBB400952EE6 /* tile_floor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tile_floor.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +100,7 @@
 		C3DD752A1F07388F00595218 = {
 			isa = PBXGroup;
 			children = (
+				C3FE438E1F09FBB400952EE6 /* Art */,
 				C35E0F051F09D63B00F64401 /* Cocos3DMathLib */,
 				C3DD75351F07388F00595218 /* OpenglTest */,
 				C3DD75341F07388F00595218 /* Products */,
@@ -134,6 +139,15 @@
 				C3DD75491F07391100595218 /* OpenGLES.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C3FE438E1F09FBB400952EE6 /* Art */ = {
+			isa = PBXGroup;
+			children = (
+				C3FE438F1F09FBB400952EE6 /* item_powerup_fish.png */,
+				C3FE43901F09FBB400952EE6 /* tile_floor.png */,
+			);
+			path = Art;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,11 +210,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3FE43921F0A07EF00952EE6 /* tile_floor.png in Resources */,
 				C3DD75411F07388F00595218 /* LaunchScreen.storyboard in Resources */,
 				C3DD75591F075F5900595218 /* SimpleVertex.glsl in Resources */,
 				C3DD753E1F07388F00595218 /* Assets.xcassets in Resources */,
 				C3DD753C1F07388F00595218 /* Main.storyboard in Resources */,
 				C3DD755B1F075F7F00595218 /* SimpleFragment.glsl in Resources */,
+				C3FE43911F0A07EC00952EE6 /* item_powerup_fish.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

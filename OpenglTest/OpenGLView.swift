@@ -12,19 +12,21 @@ import OpenGLES
 struct Vertex {
     var Position: (CFloat, CFloat, CFloat)
     var Color: (CFloat, CFloat, CFloat, CFloat)
+    var TexCoord: (CFloat, CFloat)
 }
 
 var Vertices = [
-    Vertex(Position: (1, -1, 0) , Color: (1, 0, 0, 1)),
-    Vertex(Position: (1, 1, 0)  , Color: (1, 0, 0, 1)),
-    Vertex(Position: (-1, 1, 0) , Color: (0, 1, 0, 1)),
-    Vertex(Position: (-1, -1, 0), Color: (0, 1, 0, 1)),
-    Vertex(Position: (1, -1, -1), Color: (1, 0, 0, 1)),
-    Vertex(Position: (1, 1, -1), Color: (1, 0, 0, 1)),
-    Vertex(Position: (-1, 1, -1), Color: (0, 1, 0, 1)),
-    Vertex(Position: (-1, -1, -1), Color: (0, 1, 0, 1)),
-
+    Vertex(Position: (1, -1, 0) , Color: (1, 0, 0, 1), TexCoord: (1, 0)),
+    Vertex(Position: (1, 1, 0)  , Color: (1, 0, 0, 1), TexCoord: (1, 1)),
+    Vertex(Position: (-1, 1, 0) , Color: (0, 1, 0, 1), TexCoord: (0, 1)),
+    Vertex(Position: (-1, -1, 0), Color: (0, 1, 0, 1), TexCoord: (0, 0)),
+    Vertex(Position: (1, -1, -1), Color: (1, 0, 0, 1), TexCoord: (1, 0)),
+    Vertex(Position: (1, 1, -1), Color: (1, 0, 0, 1), TexCoord: (1, 1)),
+    Vertex(Position: (-1, 1, -1), Color: (0, 1, 0, 1), TexCoord: (0, 1)),
+    Vertex(Position: (-1, -1, -1), Color: (0, 1, 0, 1), TexCoord: (0, 0)),
 ]
+
+
 
 var Indices: [GLubyte] = [
     // Front
@@ -81,6 +83,12 @@ class OpenGLView: UIView {
 
     var _depthRenderBuffer: GLuint = 0
 
+    var _floorTexture: GLuint = 0
+    var _fishTexture: GLuint = 0
+    var _texCoordSlot: GLuint = 0
+    var _textureUniform: GLuint = 0
+
+
     override func layoutSubviews() {
         super.layoutSubviews()
 
@@ -92,6 +100,9 @@ class OpenGLView: UIView {
         compileShaders()
         setupVBOs()
         setupDisplayLink()
+
+        _floorTexture = setupTexture(fileName: "tile_floor.png")
+        _fishTexture = setupTexture(fileName: "item_powerup_fish.png")
     }
     
 }
@@ -129,6 +140,35 @@ extension OpenGLView {
         glRenderbufferStorage(GLenum(GL_RENDERBUFFER), GLenum(GL_DEPTH_COMPONENT16), GLsizei(frame.width), GLsizei(frame.height))
     }
 
+    func setupTexture(fileName: String) -> GLuint {
+        guard let spriteImage = UIImage(named: fileName)?.cgImage else {
+            print("Failed to load image: \(fileName)")
+            exit(1)
+        }
+
+        let width = spriteImage.width
+        let height = spriteImage.height
+
+        let spriteData = calloc(width*height*4, MemoryLayout<GLubyte>.size)
+        let spriteContext = CGContext(data: spriteData, width: width, height: height, bitsPerComponent: 8, bytesPerRow: width*4, space: spriteImage.colorSpace!, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)
+
+        spriteContext?.draw(spriteImage, in: CGRect(x: 0, y: 0, width: width, height: height))
+
+        var texName: GLuint = 0
+        glGenTextures(1, &texName)
+        glBindTexture(GLenum(GL_TEXTURE_2D), texName)
+
+
+        glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MIN_FILTER), GL_NEAREST)
+
+        glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGBA, GLsizei(width), GLsizei(height), 0, GLenum(GL_RGBA), GLenum(GL_UNSIGNED_BYTE), spriteData)
+
+        free(spriteData)
+
+        return texName
+
+    }
+
     func setupFrameBuffer() {
         var frameBuffer: GLuint = 0
         glGenFramebuffers(1, &frameBuffer)
@@ -161,6 +201,12 @@ extension OpenGLView {
         let colorSlotFirstComponent = UnsafeRawPointer(bitPattern: MemoryLayout<CFloat>.size * 3)
         glVertexAttribPointer(GLuint(_colorSlot), 4, GLenum(GL_FLOAT), GLboolean(GL_FALSE), GLsizei(MemoryLayout<Vertex>.size), colorSlotFirstComponent)
 
+        let textureSlotFirstComponent = UnsafeRawPointer(bitPattern: MemoryLayout<CFloat>.size * 7)
+        glVertexAttribPointer(_texCoordSlot, 2, GLenum(GL_FLOAT), GLboolean(GL_FALSE), GLsizei(MemoryLayout<Vertex>.size), textureSlotFirstComponent)
+
+        glActiveTexture(GLenum(GL_TEXTURE0))
+        glBindTexture(GLenum(GL_TEXTURE_2D), _floorTexture)
+        glUniform1i(GLint(_textureUniform), 0)
 
         glDrawElements(GLenum(GL_TRIANGLES), GLsizei(Indices.count), GLenum(GL_UNSIGNED_BYTE), nil)
 
@@ -228,6 +274,10 @@ extension OpenGLView {
 
         _projectionUniform = GLuint(glGetUniformLocation(programHandle, "Projection"))
         _modelViewUniform = GLuint(glGetUniformLocation(programHandle, "Modelview"))
+
+        _texCoordSlot = GLuint(glGetAttribLocation(programHandle, "TexCoordIn"))
+        glEnableVertexAttribArray(_texCoordSlot)
+        _textureUniform = GLuint(glGetUniformLocation(programHandle, "Texture"))
 
     }
 
